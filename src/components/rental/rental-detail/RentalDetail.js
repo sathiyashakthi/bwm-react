@@ -55,7 +55,7 @@ import {RentalDetailInfo} from './RentalDetailInfo';
         }
     }
 }
-debugger
+
 function mapStateToProps(state){
 
     return{
