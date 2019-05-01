@@ -5,10 +5,14 @@ import {FETCH_RENTALS,
     FETCH_RENTALS_SUCCESS,
     FETCH_RENTAL_BY_ID_INIT,
     LOGIN_SUCCESS,
-    LOGIN_FAILURE} from './types'
+    LOGIN_FAILURE,
+    LOGOUT} from './types'
 import { promises } from 'fs';
 import authService from '../services/auth-service';
+import axiosService from '../services/axios-service'
 //RENTAL ACTIONS---------------------
+const axiosInstance = axiosService.getInstance()
+
 const fetchRentalByIdInit =(rental) =>{
     return{
         type :FETCH_RENTAL_BY_ID_INIT,
@@ -29,7 +33,7 @@ const fetchRentalsSucces =(rentals) =>{
 }
  export const fetchRentals =()=>{
      return dispatch => {
-        axios.get('/api/v1/rentals/')
+        axiosInstance.get('/rentals')
         .then(res=> res.data)
         
         .then(rentals=>dispatch(fetchRentalsSucces(rentals))
@@ -79,7 +83,7 @@ export const checkAuthState=()=>{
     return dispatch=>{
         debugger;
         if(authService.isAuthenticated()){
-            dispatch(loginSuccess);
+            dispatch(loginSuccess());
         }
     }
 }
@@ -89,11 +93,18 @@ export const login=(userData)=>{
         .then(res => res.data)
         .then(token=>{
             debugger;
-            localStorage.setItem('auth_token',token)
+            authService.saveToken(token);
             dispatch(loginSuccess());
         })
         .catch(({response})=>{
-            dispatch(loginFailure(response.data.error));
+            dispatch(loginFailure(response.data.errors));
         })
+    }
+}
+
+export const logout = ()=>{
+    authService.invalidateUser();
+    return {
+        type:LOGOUT
     }
 }

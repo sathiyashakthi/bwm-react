@@ -4,6 +4,11 @@
 @import '../styles/rental/rental-detail';
 @import '../styles/form/form';
 
+.clickable{
+    &:hover{
+        cursor: pointer;
+    }
+}
 .page-title{
     font-size: 30px;
     font-weight: 700;

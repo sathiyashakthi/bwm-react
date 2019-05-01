@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS,LOGIN_FAILURE} from '../actions/types'
+import {LOGIN_SUCCESS,LOGIN_FAILURE,LOGOUT} from '../actions/types'
 const INITAL_STATE ={
    isAuth:false,
   
@@ -13,6 +13,8 @@ export const authReducer =(state=INITAL_STATE,action)=> {
 
         case LOGIN_FAILURE:
             return Object.assign({},state,{errors:action.errors});
+            case LOGOUT:
+            return Object.assign({},state,{isAuth:false});
 
         default:
             return state;
