@@ -45,7 +45,7 @@ const RegisterForm = props => {
 
       <div>
         <button className='btn btn-bwm btn-form'type="submit" disabled={!valid||pristine || submitting}>
-          Submit
+          Register
         </button>
 
       </div>

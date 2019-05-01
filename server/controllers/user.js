@@ -26,7 +26,7 @@ User.findOne({email},function(err,user){
                 userId : user.id,
                 username :user.username
                 }, config.SECRET, { expiresIn: '1h' });
-                return res.json({token});
+                return res.json(token);
     }else{
         return res.status(422).send({errors:[{title:'Wrong Data ',detail:'Wrong email or password'}]})
     
