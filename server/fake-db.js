@@ -39,6 +39,11 @@ class FakeDb{
         usernmae :"Test User",
         email :"test@gmail.com",
         password:"testtest"
+    },
+    {
+        usernmae :"Test User2",
+        email :"test2@gmail.com",
+        password:"testtest"
     }];
     }
     async cleanDb() {
@@ -46,7 +51,8 @@ class FakeDb{
        await Rental.remove({});
     }
     pushDataToDb(){
-        const user =new User(this.users[0]);//above defined user this.users[0]
+        const user =new User(this.users[0]);
+        const user2 =new User(this.users[1]);//above defined user this.users[0]
         this.rentals.forEach((rental) => {
             const newRental = Rental(rental);
             newRental.user =user; //assign the user to rentals
@@ -54,6 +60,7 @@ class FakeDb{
             newRental.save();//means rental was created by this user
         });
       user.save();
+      user2.save();
     }
        async seedDb(){
         await this.cleanDb()
