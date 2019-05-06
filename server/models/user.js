@@ -24,7 +24,9 @@ const userSchema = new Schema({
         max :[32, 'Too long, max is 128 characters'],
         required:'Password is required',
     },
-    rentals :[{type:Schema.Types.ObjectId, ref :'Rentals'}]
+    rentals :[{type:Schema.Types.ObjectId, ref :'Rentals'}],
+    bookings: [{type:Schema.Types.ObjectId, ref :'Booking'}]
+
 });
 userSchema.methods.hasSamePassword =function(requestedPassword){
     return bcrypt.compareSync(requestedPassword,this.password);
