@@ -8,7 +8,6 @@ getToken(){
     return localStorage.getItem(this.tokenKey);
 }
 decode(token){
-    debugger;
     return jwt.decode(token);
 }
 saveToken(token){
