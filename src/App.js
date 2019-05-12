@@ -17,7 +17,7 @@ class App extends Component {
     this.checkAuthState();
   }
 checkAuthState(){
-  debugger;
+
   store.dispatch(actions.checkAuthState());
 }
 logout(){

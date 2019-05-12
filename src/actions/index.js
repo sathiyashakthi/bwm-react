@@ -68,9 +68,8 @@ const loginFailure=(errors)=>{
     }
 }
 export const register=(userData)=>{
-    return axios.post('/api/v1/users/register',{...userData}).then(
+    return axios.post('/api/v1/users/register',userData).then(
         res=>res.data,
-        
         err=>Promise.reject(err.response.data.errors)
         
 
@@ -81,7 +80,6 @@ export const register=(userData)=>{
 
 export const checkAuthState=()=>{
     return dispatch=>{
-        debugger;
         if(authService.isAuthenticated()){
             dispatch(loginSuccess());
         }
@@ -89,7 +87,7 @@ export const checkAuthState=()=>{
 }
 export const login=(userData)=>{
     return dispatch=>{
-        return axios.post('api/v1/users/auth',{...userData})
+        return axios.post('api/v1/users/auth',userData)
         .then(res => res.data)
         .then(token=>{
             debugger;
@@ -107,4 +105,12 @@ export const logout = ()=>{
     return {
         type:LOGOUT
     }
+}
+
+export const createBooking =(booking)=>{
+    debugger;
+   return axiosInstance.post('/bookings')
+    .then(res=> res.data)
+    .catch(({response})=>response.data.errors)
+
 }

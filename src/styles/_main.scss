@@ -1,8 +1,9 @@
 @import 'variables.scss';
-@import '../styles/heaer/header';
+@import '../styles/header/header';
 @import '../styles/rental/rental-listing';
 @import '../styles/rental/rental-detail';
 @import '../styles/form/form';
+@import '../styles/booking/booking';
 
 .clickable{
     &:hover{

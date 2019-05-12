@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import * as actions from  'actions';
 import {connect} from 'react-redux';
 import {RentalDetailInfo} from './RentalDetailInfo';
+import { Booking } from '../../booking/Booking';
   class RentalDetail extends Component{
     componentWillMount(){
        const rentalId = this.props.match.params.id;
         console.log(rentalId)
-        debugger;
        this.props.dispatch(actions.FetchRentalById(rentalId));
 
    }
@@ -17,7 +17,7 @@ import {RentalDetailInfo} from './RentalDetailInfo';
 
       const  rental= this.props.rental;
       console.log(rental._id)
-      debugger;
+      
 
         if(rental._id){
         return(
@@ -39,7 +39,7 @@ import {RentalDetailInfo} from './RentalDetailInfo';
       <div className='col-md-8'>
         <RentalDetailInfo rental={rental}/>
       </div>
-      <div className='col-md-4'> BOOKING</div>
+      <div className='col-md-4'> <Booking rental ={rental}/></div>
     </div>
   </div>
 </section>
