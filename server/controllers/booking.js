@@ -5,12 +5,13 @@ const {normalizeErrors} =require('../helpers/mongoose');
 const moment =require('moment');
 
 exports.createBooking =function(req,res){
-    const{startAt,endAt,totalPrice,guests,days,rental}=req.body;
+    const {startAt,endAt,totalPrice,guests,days,rental}= req.body;
     const user =res.locals.user;
+    const rentalID =rental._id
 
     const booking = new Booking({startAt, endAt,totalPrice,guests,days});
 
-    Rental.findById(rental._id)
+    Rental.findById(rentalID)
           .populate('bookings')
           .populate('user')
           .exec(function(err,foundRental){

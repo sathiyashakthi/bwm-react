@@ -33,7 +33,8 @@ const fetchRentalsSucces =(rentals) =>{
 }
  export const fetchRentals =()=>{
      return dispatch => {
-        axiosInstance.get('/rentals')
+       axiosInstance.get('/rentals')
+
         .then(res=> res.data)
         
         .then(rentals=>dispatch(fetchRentalsSucces(rentals))
@@ -109,8 +110,8 @@ export const logout = ()=>{
 
 export const createBooking =(booking)=>{
     debugger;
-   return axiosInstance.post('/bookings')
+   return axiosInstance.post('/bookings',booking)
     .then(res=> res.data)
-    .catch(({response})=>response.data.errors)
+    .catch(({response})=>Promise.reject(response.data.errors))
 
 }
