@@ -3,6 +3,8 @@ import * as jwt from 'jsonwebtoken';
 import {FETCH_RENTALS,
     FETCH_RENTAL_BY_ID_SUCCESS,
     FETCH_RENTALS_SUCCESS,
+    FETCH_RENTALS_INIT,
+    FETCH_RENTALS_FAILURE,
     FETCH_RENTAL_BY_ID_INIT,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
@@ -31,14 +33,29 @@ const fetchRentalsSucces =(rentals) =>{
         rentals
     }
 }
- export const fetchRentals =()=>{
-     return dispatch => {
-       axiosInstance.get('/rentals')
 
+const fectchRentalsInit =()=>{
+    return{
+        type: FETCH_RENTALS_INIT
+    }
+}
+
+const fetchRentalsFailure =(errors)=>{
+    return{
+        type:FETCH_RENTALS_FAILURE,
+        errors
+
+    }
+}
+ export const fetchRentals =(city)=>{
+     const url =city ? `/rentals?city=${city}`:'/rentals';
+     
+     return dispatch => {
+        dispatch(fectchRentalsInit())
+       axiosInstance.get(url)
         .then(res=> res.data)
-        
-        .then(rentals=>dispatch(fetchRentalsSucces(rentals))
-        );
+        .then(rentals=>dispatch(fetchRentalsSucces(rentals)))
+        .catch(({response})=>dispatch(fetchRentalsFailure(response.data.errors)))
      }
  }
  export const FetchRentalById =(rentalId)=>{
@@ -55,10 +72,22 @@ const fetchRentalsSucces =(rentals) =>{
         //
     }
 }
+
+export const createRental=(rentalData)=>{
+    return axiosInstance.post('/rentals',rentalData).then(
+        res=>res.data,
+        err=>Promise.reject(err.response.data.errors)
+        
+
+        
+    )
+}
 // AUTH ACTIONS-----------------------
 const loginSuccess=()=>{
+    const username= authService.getUsername()
     return{
-        type:LOGIN_SUCCESS
+        type:LOGIN_SUCCESS,
+        username
         
     }
 }
@@ -115,3 +144,4 @@ export const createBooking =(booking)=>{
     .catch(({response})=>Promise.reject(response.data.errors))
 
 }
+

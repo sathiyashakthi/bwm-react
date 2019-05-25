@@ -20,6 +20,9 @@ getExpiration(token){
     const exp =this.decode(token).exp;
     return moment.unix(exp);
 }
+getUsername(){
+    return this.decode(this.getToken()).username;
+}
 isValid(token){
     return moment().isBefore(this.getExpiration(token));
 }
