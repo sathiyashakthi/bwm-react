@@ -10,8 +10,8 @@ return(
           <h2 className='rental-city'>{toUppercase(rental.city)}</h2>
           <div className='rental-room-info'>
             <span><i className='fa fa-building'></i>{rental.bedrooms} bedrooms</span>
-            <span><i className='fa fa-user'></i> {rental.bedrooms + 4} guests</span>
-            <span><i className='fa fa-bed'></i> {rental.bedrooms + 2} beds</span>
+            <span><i className='fa fa-user'></i> {rental.bedrooms * 4} guests</span>
+            <span><i className='fa fa-bed'></i> {rental.bedrooms * 2} beds</span>
           </div>
           <p className='rental-description'>
             {rental.description}
