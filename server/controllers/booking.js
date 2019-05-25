@@ -25,7 +25,7 @@ exports.createBooking =function(req,res){
               }
               if(isValidBooking(booking,foundRental))
               {    booking.user=user;
-                    booking.rentals=foundRental;
+                    booking.rental=foundRental;
                   foundRental.bookings.push(booking);
                 booking.save(function(err){
                     if(err){
@@ -43,6 +43,20 @@ exports.createBooking =function(req,res){
               }
           })
         
+}
+
+exports.getUserBookings = function(req,res){
+  const user = res.locals.user
+  Booking
+    .where({user})//user:user
+    .populate('rental')
+    .exec(function(err,foundBookings){
+      if(err){
+        return res.status(422).send({errors:normalizeErrors(err.errors)}); 
+
+      }
+      return res.json({foundBookings})
+    });
 }
 function isValidBooking(proposedBooking,rental){
     let isValid=true;

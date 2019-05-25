@@ -8,7 +8,7 @@ const bookingSchema =new Schema({
     guests:Number,
     createdAt:{type:Date,default:Date.now},
     user: {type:Schema.Types.ObjectId, ref :'User'},
-    rentals :{type:Schema.Types.ObjectId, ref :'Rental'}
+    rental :{type:Schema.Types.ObjectId, ref :'Rental'}
 
 
 
