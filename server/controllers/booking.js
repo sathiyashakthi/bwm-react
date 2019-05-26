@@ -21,7 +21,7 @@ exports.createBooking =function(req,res){
 
               }
               if(foundRental.user.id===user.id){
-                return res.status(401).send({errors:[{title:'Invalid User',detail:'Cannot create booking on your Rental'}]});   
+                return res.status(422).send({errors:[{title:'Invalid User',detail:'Cannot create booking on your Rental'}]});   
               }
               if(isValidBooking(booking,foundRental))
               {    booking.user=user;
@@ -38,7 +38,7 @@ exports.createBooking =function(req,res){
                 return res.json({startAt:booking.startAt,endAt:booking.endAt});
               } 
               else{
-                return res.status(401).send({errors:[{title:'Invalid Booking',detail:'Choosen Date Already Taken'}]});   
+                return res.status(422).send({errors:[{title:'Invalid Booking',detail:'Choosen Date Already Taken'}]});   
   
               }
           })
@@ -52,10 +52,9 @@ exports.getUserBookings = function(req,res){
     .populate('rental')
     .exec(function(err,foundBookings){
       if(err){
-        return res.status(422).send({errors:normalizeErrors(err.errors)}); 
-
+        return res.status(422).send({errors:normalizeErrors(err.errors)});
       }
-      return res.json({foundBookings})
+      return res.json(foundBookings)
     });
 }
 function isValidBooking(proposedBooking,rental){

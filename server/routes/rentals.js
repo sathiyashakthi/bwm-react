@@ -20,7 +20,7 @@ router.get('/manage',UserCtrl.authMiddleware,  function(req,res){
         return res.status(422).send({errors:normalizeErrors(err.errors)}); 
 
       }
-      return res.json({foundRentals})
+      return res.json(foundRentals)
     });
 });
 

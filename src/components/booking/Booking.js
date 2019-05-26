@@ -32,7 +32,8 @@ export class Booking extends React.Component {
     getBookedOutDates(){
         
         const {bookings} = this.props.rental;
-        //console.log(bookings);
+        debugger;
+        console.log(bookings);
         if(bookings && bookings.length >0){
             bookings.forEach(booking =>{
                 const dateRange =getRangeOfDates(booking.startAt,booking.endAt,'Y/MM/DD');
@@ -108,8 +109,10 @@ export class Booking extends React.Component {
         
     }
     reserveRental(){
+        debugger;
         actions.createBooking(this.state.proposedBooking).then(
             (booking)=>{
+            debugger;
             this.addNewBookedOutDates(booking);
             this.cancelConfirmation();
             this.resetdata();

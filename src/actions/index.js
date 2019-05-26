@@ -1,17 +1,24 @@
 import axios from 'axios'
+
+
 import * as jwt from 'jsonwebtoken';
+
 import {FETCH_RENTALS,
     FETCH_RENTAL_BY_ID_SUCCESS,
     FETCH_RENTALS_SUCCESS,
     FETCH_RENTALS_INIT,
     FETCH_RENTALS_FAILURE,
     FETCH_RENTAL_BY_ID_INIT,
+    FETCH_USER_BOOKINGS_INIT,
+    FETCH_USER_BOOKINGS_SUCCESS,
+    FETCH_USER_BOOKINGS_FAIL,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
     LOGOUT} from './types'
 import { promises } from 'fs';
 import authService from '../services/auth-service';
-import axiosService from '../services/axios-service'
+import axiosService from '../services/axios-service';
+
 //RENTAL ACTIONS---------------------
 const axiosInstance = axiosService.getInstance()
 
@@ -76,12 +83,70 @@ const fetchRentalsFailure =(errors)=>{
 export const createRental=(rentalData)=>{
     return axiosInstance.post('/rentals',rentalData).then(
         res=>res.data,
-        err=>Promise.reject(err.response.data.errors)
-        
-
-        
+        err=>Promise.reject(err.response.data.errors)   
     )
 }
+
+//UserBookings Actions
+export const fetchUserBookingsInit=()=>{
+    return{
+        type:FETCH_USER_BOOKINGS_INIT
+    }
+}
+
+export const fetchUserBookingsSuccess=(userBookings)=>{
+    debugger;
+    return{
+        type:FETCH_USER_BOOKINGS_SUCCESS,
+        userBookings
+    }
+}
+
+export const fetchUserBookingsFail=(errors)=>{
+    return{
+        type:FETCH_USER_BOOKINGS_FAIL,
+        errors
+    }
+}
+export const createBooking =(booking)=>{
+    debugger;
+   return axiosInstance.post('/bookings',booking)
+    .then(res=> res.data)
+    .catch((response) =>  { 
+        console.log("response :" + response)
+        Promise.reject(response.data.errors)   
+    })
+}
+
+export const fetchUserBookings=()=>{
+    debugger;
+    return dispatch=>{
+        dispatch(fetchUserBookingsInit())
+     axiosInstance.get('/bookings/manage')
+    .then(res=>res.data)
+    .then(userBookings=>dispatch(fetchUserBookingsSuccess(userBookings)))
+    .catch((axiosRes) => { 
+        const defaulErr = [{title: 'Error', detail:'Uuups Something Happened'}];
+        return axiosRes.response ? fetchUserBookingsFail(axiosRes.response.data.errors) : fetchUserBookingsFail(defaulErr);
+      })
+      
+      
+}}
+
+
+
+
+
+//USER RENTAL ACTION
+
+export const getUserRental=()=>{
+    return axiosInstance.get('/rentals/manage').then(
+        res=>res.data,
+        err=>Promise.reject(err.response.data.errors)
+ 
+   )}
+
+
 // AUTH ACTIONS-----------------------
 const loginSuccess=()=>{
     const username= authService.getUsername()
@@ -135,13 +200,5 @@ export const logout = ()=>{
     return {
         type:LOGOUT
     }
-}
-
-export const createBooking =(booking)=>{
-    debugger;
-   return axiosInstance.post('/bookings',booking)
-    .then(res=> res.data)
-    .catch(({response})=>Promise.reject(response.data.errors))
-
 }
 
