@@ -37,7 +37,7 @@ export class Booking extends React.Component {
         if(bookings && bookings.length >0){
             bookings.forEach(booking =>{
                 const dateRange =getRangeOfDates(booking.startAt,booking.endAt,'Y/MM/DD');
-                this.bookedOutDates.push(...dateRange)
+                this.bookedOutDates.push(...dateRange) //append new element of the array and return new length of array
             });
             console.log(this.bookedOutDates);
 
@@ -112,7 +112,6 @@ export class Booking extends React.Component {
         debugger;
         actions.createBooking(this.state.proposedBooking).then(
             (booking)=>{
-            debugger;
             this.addNewBookedOutDates(booking);
             this.cancelConfirmation();
             this.resetdata();
@@ -120,7 +119,6 @@ export class Booking extends React.Component {
             },
             (errors)=>{
                 this.setState({errors});
-                debugger;
 
             })
     }

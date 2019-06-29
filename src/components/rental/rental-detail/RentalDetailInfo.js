@@ -6,6 +6,10 @@ export function RentalDetailInfo(props){
 return(
 <div className='rental'>
           <h2 className={`rental-type ${rental.category}`}>{rentalType(rental.shared)} {rental.category}</h2>
+          <div className='rental-owner'>
+                  <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            <span><span>Owner : </span> {rental.user && rental.user.username}</span>
+          </div>
           <h1 className='rental-title'>{rental.title}</h1>
           <h2 className='rental-city'>{toUppercase(rental.city)}</h2>
           <div className='rental-room-info'>

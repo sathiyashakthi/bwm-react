@@ -16,6 +16,14 @@
           text-transform: uppercase;
           margin: 0;
         }
+        &-owner{
+          float: right;
+          span{
+            font-size: 13px;
+            font-weight:bolder;
+            margin-left: 10px;
+          }
+        }
   
         &-title {
           margin-bottom: 5px;
