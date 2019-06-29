@@ -112,10 +112,8 @@ export const createBooking =(booking)=>{
     debugger;
    return axiosInstance.post('/bookings',booking)
     .then(res=> res.data)
-    .catch((response) =>  { 
-        console.log("response :" + response)
-        Promise.reject(response.data.errors)   
-    })
+    .catch(({response}) => Promise.reject(response.data.errors))
+
 }
 
 export const fetchUserBookings=()=>{
@@ -145,7 +143,12 @@ export const getUserRental=()=>{
         err=>Promise.reject(err.response.data.errors)
  
    )}
-
+export const deleteRental=(rentalId)=>{
+    return axiosInstance.delete(`/rentals/${rentalId}`).then(
+        res=>res.data,
+        err=>Promise.reject(err.response.data.errors)
+    )
+}
 
 // AUTH ACTIONS-----------------------
 const loginSuccess=()=>{

@@ -58,7 +58,7 @@ router.delete('/:id',UserCtrl.authMiddleware,function(req,res){
 
           }
           if(foundRental.bookings.length>0){
-            return  res.status(422).send({errors:[{title: 'Active Booking', detail :'Cannot create a booking with active booking'}]});
+            return  res.status(422).send({errors:[{title: 'Active Booking', detail :'Cannot delete rental with active booking'}]});
 
           }
           foundRental.remove(function(err){

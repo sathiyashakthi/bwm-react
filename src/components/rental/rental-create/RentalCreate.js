@@ -2,6 +2,7 @@ import React from 'react';
 import  RentalCreateForm from'./RentalCreateForm';
 import * as actions from 'actions'
 import {Redirect} from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
 
 export class RentalCreate extends React.Component{
    
@@ -17,7 +18,15 @@ redirect:false
 
   createRental(rentalData){
     actions.createRental(rentalData).then(
-      (rental)=>{this.setState({redirect:true})},
+      (rental)=>{
+        setTimeout(() => {
+          this.setState({
+          redirect:true
+        })
+      }, 2000);
+        //this.setState({redirect:true})
+        toast.success("Rental has been Created")
+},     
       (errors)=>{this.setState({errors})}
     
     )
@@ -26,12 +35,18 @@ redirect:false
   
   render(){
     const {errors ,redirect} =this.state;
+
     if(redirect){
-        return<Redirect to= {{pathname :'/rentals'}}/>
-    
+
+          return (
+
+          <Redirect to= {{pathname :'/rentals'}} />
+          )
+
     }
         return(
 <section id='newRental'>
+  <ToastContainer/>
   <div className='bwm-form'>
     <div className='row'>
       <div className='col-md-5'>

@@ -26,7 +26,9 @@ export class RentalManageModal extends React.Component{
             <p><span>Date:</span> {pretifyDate(booking.startAt)} - {pretifyDate(booking.endAt)}</p>
             <p><span>Guests:</span>{booking.guests}</p>
             <p><span>Total Price:</span>{booking.totalPrice} $</p>
+           {index +1 !== bookings.length &&  
             <hr></hr>
+            }      
     </React.Fragment>
     )
     }
@@ -44,7 +46,7 @@ export class RentalManageModal extends React.Component{
 
     </div>
     <div className='modal-footer'>
-      <button type='button' onClick='Close Modal' className='btn btn-bwm'>Cancel</button>
+      <button type='button' onClick={this.closeModal} className='btn btn-bwm'>Cancel</button>
     </div>
   </Modal>
 </React.Fragment>

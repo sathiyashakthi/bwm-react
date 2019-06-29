@@ -10,7 +10,7 @@ class Header extends React.Component{
     handleLogout()
     {
         this.props.logout();
-        this.props.history.push('/login')
+        this.props.history.push('/rentals')
 
     }
 renderAuthButtons(isAuth){
@@ -54,7 +54,7 @@ renderOwnerSection(isAuth){
                 <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
                     <div className='navbar-nav ml-auto'>
                 { isAuth &&
-                    <a className='nav-item nav-link' >{this.props.auth.username}</a>
+                    <a className='nav-item nav-link' ><span><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>{this.props.auth.username}</a>
                 }
                 {this.renderOwnerSection(isAuth)}
                 {this.renderAuthButtons(isAuth)}                    
