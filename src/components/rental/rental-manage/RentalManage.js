@@ -3,7 +3,6 @@ import * as action from 'actions'
 import {Link} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import {RentalManageCard} from './RentalManageCard'
-import { bindActionCreators } from '../../../../../../../AppData/Local/Microsoft/TypeScript/3.4.5/node_modules/redux';
 export class RentalManage extends React.Component{
 
     constructor(){
