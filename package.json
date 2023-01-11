@@ -16,7 +16,7 @@
     "font-awesome": "^4.7.0",
     "http-proxy-middleware": "^0.19.1",
     "jquery": "^3.3.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "moment": "^2.24.0",
     "mongoose": "^5.4.13",
     "node-sass-chokidar": "^1.2.2",
